@@ -19,7 +19,13 @@ pnpm lint
 pnpm build
 ```
 
-Built with React, TypeScript, Tailwind CSS, and the Sites scaffold’s Vinext/Vite runtime. No database, API keys, or external backend are needed. The first build downloads the Manrope font from Google Fonts.
+Built with Next.js, React, TypeScript, and Tailwind CSS. No database, API keys, or external backend are needed. The first build downloads the Manrope font from Google Fonts.
+
+## Deploy to Vercel
+
+Import this GitHub repository into Vercel and use the Next.js framework preset. Keep the default install command, build command, and output directory. Set `ENABLE_EXPERIMENTAL_COREPACK=1` in the Vercel project so it uses the pnpm version pinned in `package.json`, as described in [Vercel's build documentation](https://vercel.com/docs/builds/configure-a-build#corepack).
+
+The app needs no runtime environment variables or custom `vercel.json`. Connect `kleitonbarone.com` when ready to replace the existing site.
 
 ## Update the content
 
