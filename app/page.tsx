@@ -56,10 +56,10 @@ export default function Home() {
           <figure className="portrait">
             <div className="portrait-frame">
               <Image
-                src="/kleiton-barone.jpg"
+                src="/kleiton-barone.webp"
                 alt="Kleiton Barone"
-                width={460}
-                height={460}
+                width={900}
+                height={1200}
                 priority
                 unoptimized
               />
