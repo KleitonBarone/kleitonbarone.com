@@ -9,12 +9,10 @@ export const featuredProjects = [
     tryThis: "Request a correction, switch to the customer, and submit a revision.",
     demo: "https://demo-customer-onboarding.kleitonbarone.com/",
     source: "https://github.com/KleitonBarone/customer-onboarding",
-    caseStudy:
-      "https://github.com/KleitonBarone/customer-onboarding/blob/main/docs/CASE_STUDY.md",
     image: "/projects/customer-onboarding.png",
     imageAlt:
       "Relay account manager queue with customer statuses and the next action for each account",
-    technologies: "React, TypeScript, Fastify, PostgreSQL",
+    knowledge: ["Access control", "Document versioning", "Approval workflows"],
   },
   {
     id: "returns-and-refunds",
@@ -26,12 +24,10 @@ export const featuredProjects = [
     tryThis: "Explore refund recovery and check the original payment status.",
     demo: "https://demo-returns-and-refunds.kleitonbarone.com/",
     source: "https://github.com/KleitonBarone/returns-and-refunds",
-    caseStudy:
-      "https://github.com/KleitonBarone/returns-and-refunds/blob/main/docs/case-study.md",
     image: "/projects/returns-and-refunds.png",
     imageAlt:
       "Northline refund panel explaining an unknown payment outcome and how finance can check its status",
-    technologies: "React, TypeScript, Fastify, PostgreSQL",
+    knowledge: ["State machines", "Transaction boundaries", "Payment reconciliation"],
   },
   {
     id: "webhook-recovery",
@@ -43,12 +39,10 @@ export const featuredProjects = [
     tryThis: "Select a failed event, repair its cause, and request a replay.",
     demo: "https://demo-webhook-recovery.kleitonbarone.com/",
     source: "https://github.com/KleitonBarone/webhook-recovery",
-    caseStudy:
-      "https://github.com/KleitonBarone/webhook-recovery/blob/main/docs/case-study.md",
     image: "/projects/webhook-recovery.png",
     imageAlt:
       "Webhook recovery console showing a processed event and its original acceptance receipt",
-    technologies: "TypeScript, React, PostgreSQL, workers",
+    knowledge: ["Event deduplication", "Stale-event handling", "Audited replay"],
   },
 ] as const;
 
@@ -69,10 +63,8 @@ type EngineeringProject = {
   name: string;
   subject: string;
   description: string;
-  technologies: string;
+  knowledge: readonly string[];
   source: string;
-  guide: string;
-  guideLabel: string;
   nodeNames: readonly [string, string, string];
   steps: readonly StoryStep[];
 };
@@ -85,11 +77,8 @@ export const engineeringProjects = [
     subject: "Outbound delivery",
     description:
       "Signed webhook delivery with durable retries, attempt history, and audited replay. The sender keeps delivery intent when a receiving service goes offline.",
-    technologies: "Go, PostgreSQL, Docker",
+    knowledge: ["HMAC signatures", "Retry backoff", "Destination policies"],
     source: "https://github.com/KleitonBarone/webhook-redrive",
-    guide:
-      "https://github.com/KleitonBarone/webhook-redrive/blob/main/docs/portfolio-demo.md",
-    guideLabel: "Local walkthrough",
     nodeNames: ["Your application", "Delivery queue", "Receiving service"],
     steps: [
       {
@@ -144,11 +133,8 @@ export const engineeringProjects = [
     subject: "Work that survives a crash",
     description:
       "A Go library for jobs with several activities. It saves progress, recovers abandoned work, and gives handlers stable keys for protecting repeated effects.",
-    technologies: "Go, PostgreSQL, worker leases",
+    knowledge: ["Worker leases", "Crash recovery", "Workflow compensation"],
     source: "https://github.com/KleitonBarone/durable-task-runner",
-    guide:
-      "https://github.com/KleitonBarone/durable-task-runner/blob/main/docs/integration.md",
-    guideLabel: "Integration guide",
     nodeNames: ["Import job", "Saved progress", "Worker"],
     steps: [
       {
@@ -203,11 +189,8 @@ export const engineeringProjects = [
     subject: "Find drift. Review the repair.",
     description:
       "A TypeScript library and CLI that compares systems, records differences, and applies explicitly approved repairs with preconditions and recovery history.",
-    technologies: "TypeScript, Node.js, SQLite",
+    knowledge: ["Conflict resolution", "Checkpointed syncs", "Conditional repairs"],
     source: "https://github.com/KleitonBarone/data-reconciler",
-    guide:
-      "https://github.com/KleitonBarone/data-reconciler/blob/main/docs/repairs.md",
-    guideLabel: "Repair walkthrough",
     nodeNames: ["Source inventory", "Reconciliation", "Target inventory"],
     steps: [
       {
@@ -262,11 +245,8 @@ export const engineeringProjects = [
     subject: "Predictable decisions during outages",
     description:
       "A feature-flag service with stable percentage targeting and a local TypeScript SDK. Flag checks use cached configuration and explicit defaults when it becomes stale.",
-    technologies: "TypeScript, Node.js, PostgreSQL",
+    knowledge: ["Deterministic targeting", "Percentage rollouts", "Offline evaluation"],
     source: "https://github.com/KleitonBarone/feature-rollout-service",
-    guide:
-      "https://github.com/KleitonBarone/feature-rollout-service/blob/main/docs/sdk.md",
-    guideLabel: "SDK behavior",
     nodeNames: ["Flag service", "Application SDK", "Feature decision"],
     steps: [
       {

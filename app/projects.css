@@ -116,7 +116,7 @@
   font-weight: 650;
   margin-bottom: 3px;
 }
-.technology {
+.project-knowledge {
   color: var(--muted);
   font-size: 11px;
   line-height: 1.7;
@@ -404,13 +404,13 @@
   font-weight: 650;
   letter-spacing: -0.5px;
 }
-.engineering-description > p:not(.technology) {
+.engineering-description > p:not(.project-knowledge) {
   max-width: 76ch;
   color: var(--muted);
   font-size: 13px;
   line-height: 1.85;
 }
-.engineering-description .technology {
+.engineering-description .project-knowledge {
   margin-block: 12px 7px;
 }
 .engineering-fallback {
@@ -421,28 +421,6 @@
 .engineering-fallback a {
   color: var(--blue);
   text-decoration: underline;
-}
-.more-work {
-  margin-top: 54px;
-  padding-top: 27px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-.more-work h3 {
-  font-size: 15px;
-  font-weight: 650;
-  margin-bottom: 7px;
-}
-.more-work p {
-  font-size: 12px;
-  line-height: 1.8;
-  color: var(--muted);
-}
-.more-work a {
-  flex-shrink: 0;
 }
 .sr-only {
   position: absolute;
@@ -480,7 +458,6 @@
   .engineering-choice > span { font-size: 13px; }
   .engineering-choice > span:last-child { font-size: 11px; }
   .story-narrative { min-height: 150px; }
-  .more-work { align-items: start; flex-direction: column; margin-top: 35px; }
 }
 @media (max-width: 390px) {
   .screenshot-viewport { height: 212px; }

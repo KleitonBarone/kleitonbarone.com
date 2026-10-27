@@ -160,13 +160,10 @@ export function EngineeringStories() {
         <div className="engineering-description">
           <h4>{project.name}</h4>
           <p>{project.description}</p>
-          <p className="technology">{project.technologies}</p>
+          <p className="project-knowledge">{project.knowledge.join(", ")}</p>
           <div className="project-links">
             <a className="text-link" href={project.source} target="_blank" rel="noopener noreferrer">
               Source code <span className="sr-only">for {project.name}</span>
-            </a>
-            <a className="text-link" href={project.guide} target="_blank" rel="noopener noreferrer">
-              {project.guideLabel} <span className="sr-only">for {project.name}</span>
             </a>
           </div>
         </div>
