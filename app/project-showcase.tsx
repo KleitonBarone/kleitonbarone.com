@@ -36,16 +36,13 @@ export function ProjectShowcase() {
               <p className="project-headline">{project.headline}</p>
               <p className="project-description">{project.description}</p>
               <p className="project-try"><span>Try this</span>{project.tryThis}</p>
-              <p className="technology">{project.technologies}</p>
+              <p className="project-knowledge">{project.knowledge.join(", ")}</p>
               <div className="project-links">
                 <a className="demo-link" href={project.demo} target="_blank" rel="noopener noreferrer">
                   Open demo <span className="sr-only">for {project.name}</span><span aria-hidden="true">↗</span>
                 </a>
                 <a className="text-link" href={project.source} target="_blank" rel="noopener noreferrer">
                   Source <span className="sr-only">for {project.name}</span>
-                </a>
-                <a className="text-link" href={project.caseStudy} target="_blank" rel="noopener noreferrer">
-                  Case study <span className="sr-only">for {project.name}</span>
                 </a>
               </div>
             </div>
@@ -54,30 +51,16 @@ export function ProjectShowcase() {
       </div>
       <p className="demo-context">
         Explore with fictional data, no sign-up needed. The hosted demos run in your
-        browser; the source and case studies cover the full backend implementations.
+        browser; the source code includes the full backend implementations.
       </p>
       <div className="engineering-heading">
-        <h3>The systems behind the screen.</h3>
+        <h3>Systems without a live demo.</h3>
         <p>
-          Some projects belong in a worker or a library. Pick one to see a small
-          illustrated scenario, then explore its code and local walkthrough.
+          Pick a system to explore a short illustrated scenario, then read its
+          source code.
         </p>
       </div>
       <EngineeringStories />
-      <div className="more-work">
-        <div>
-          <h3>Also built along the way</h3>
-          <p>A TabNews clone, built through curso.dev while learning the full web stack.</p>
-        </div>
-        <a
-          className="text-link"
-          href="https://github.com/KleitonBarone/clone-tabnews"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Explore the TabNews clone <span aria-hidden="true">↗</span>
-        </a>
-      </div>
     </>
   );
 }

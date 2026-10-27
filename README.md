@@ -31,7 +31,7 @@ The app needs no runtime environment variables or custom `vercel.json`. Connect 
 
 - `app/profile.ts`: contact details and social links.
 - `app/page.tsx`: the page sections and personal introduction.
-- `app/projects.ts`: hosted demo URLs, repository and case-study links, and the illustrated engineering scenarios.
+- `app/projects.ts`: hosted demo URLs, source-code links, distinct engineering knowledge, and the illustrated scenarios.
 - `app/project-showcase.tsx`: the three hosted apps and their screenshots.
 - `app/engineering-stories.tsx`: the selectable engineering walkthroughs.
 - `app/resume/page.tsx`: redirect from the previous résumé page to the PDF.
@@ -40,7 +40,7 @@ The app needs no runtime environment variables or custom `vercel.json`. Connect 
 - `public/kleiton-barone.jpg`: the current public GitHub profile photo.
 - `public/resume.pdf`: the unmodified LinkedIn PDF export, downloaded September 12, 2026. Replace this file after updating the LinkedIn profile to keep the download current.
 
-The three featured links open independently hosted browser demos with fictional data. Their source and case-study links describe the full backend implementations. Screenshots come from the projects' local verification records.
+The three featured links open independently hosted browser demos with fictional data. Their source-code links include the full backend implementations. Screenshots come from the projects' local verification records. Each project lists distinct engineering knowledge rather than repeating its technology stack.
 
 Engineering walkthroughs are illustrations, not running backend services. They play once after a click, pause when hidden or offscreen, and support manual stepping. Reduced-motion visitors get manual controls without autoplay. No animation library or external service is needed.
 
