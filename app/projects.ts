@@ -46,253 +46,42 @@ export const featuredProjects = [
   },
 ] as const;
 
-type NodeState = {
-  label: string;
-  tone: "neutral" | "active" | "warning" | "success";
-};
-
-type StoryStep = {
-  title: string;
-  description: string;
-  nodes: readonly [NodeState, NodeState, NodeState];
-  connections: readonly ["idle" | "forward" | "backward", "idle" | "forward" | "backward"];
-};
-
-type EngineeringProject = {
-  id: string;
-  name: string;
-  subject: string;
-  description: string;
-  knowledge: readonly string[];
-  source: string;
-  nodeNames: readonly [string, string, string];
-  steps: readonly StoryStep[];
-};
-
-// These finite, illustrative stories explain the projects. They run no backend code.
+// Each illustration has its own composition; none calls a backend service.
 export const engineeringProjects = [
   {
     id: "webhook-redrive",
     name: "Webhook Redrive",
-    subject: "Outbound delivery",
-    description:
-      "Signed webhook delivery with durable retries, attempt history, and audited replay. The sender keeps delivery intent when a receiving service goes offline.",
+    subject: "A failed delivery is not a lost event",
+    description: "Signed webhook delivery with durable retries and a complete attempt history. The same saved event gets another chance when the receiving service recovers.",
+    sceneDescription: "A signed event leaves the application, receives a 503 response, follows the retry route, and is delivered on its second attempt. Both attempts remain recorded.",
     knowledge: ["HMAC signatures", "Retry backoff", "Destination policies"],
     source: "https://github.com/KleitonBarone/webhook-redrive",
-    nodeNames: ["Your application", "Delivery queue", "Receiving service"],
-    steps: [
-      {
-        title: "Save before sending",
-        connections: ["forward", "idle"],
-        description:
-          "The application submits an event. Its delivery intent is stored before the first request leaves.",
-        nodes: [
-          { label: "Event submitted", tone: "active" },
-          { label: "Saved", tone: "success" },
-          { label: "Waiting", tone: "neutral" },
-        ],
-      },
-      {
-        title: "The receiver is unavailable",
-        connections: ["idle", "forward"],
-        description:
-          "A failed request becomes an attempt in the history. The event stays recorded for another try.",
-        nodes: [
-          { label: "Event retained", tone: "neutral" },
-          { label: "Retry scheduled", tone: "warning" },
-          { label: "503 unavailable", tone: "warning" },
-        ],
-      },
-      {
-        title: "Retry the same event",
-        connections: ["idle", "forward"],
-        description:
-          "The worker sends the saved payload again after the retry delay. The receiving service has recovered.",
-        nodes: [
-          { label: "Same event", tone: "neutral" },
-          { label: "Sending again", tone: "active" },
-          { label: "Back online", tone: "active" },
-        ],
-      },
-      {
-        title: "Keep the complete history",
-        connections: ["idle", "idle"],
-        description:
-          "Delivery succeeds. The earlier failure remains visible. Receivers still need to deduplicate business processing.",
-        nodes: [
-          { label: "Event retained", tone: "neutral" },
-          { label: "History preserved", tone: "success" },
-          { label: "Delivered", tone: "success" },
-        ],
-      },
-    ],
   },
   {
     id: "durable-task-runner",
     name: "Durable Task Runner",
-    subject: "Work that survives a crash",
-    description:
-      "A Go library for jobs with several activities. It saves progress, recovers abandoned work, and gives handlers stable keys for protecting repeated effects.",
+    subject: "Progress that outlives a worker",
+    description: "A Go library that saves completed activities and recovers abandoned work. A replacement worker retries the unfinished activity using a stable effect key.",
+    sceneDescription: "Validation stays complete when a worker stops during import. A replacement retries the import activity, then completes the confirmation step.",
     knowledge: ["Worker leases", "Crash recovery", "Workflow compensation"],
     source: "https://github.com/KleitonBarone/durable-task-runner",
-    nodeNames: ["Import job", "Saved progress", "Worker"],
-    steps: [
-      {
-        title: "Save the job and its plan",
-        connections: ["forward", "idle"],
-        description:
-          "The import's activity plan is committed before a worker can claim its first step.",
-        nodes: [
-          { label: "Import queued", tone: "active" },
-          { label: "Plan stored", tone: "success" },
-          { label: "Ready", tone: "neutral" },
-        ],
-      },
-      {
-        title: "Finish the first activity",
-        connections: ["idle", "backward"],
-        description:
-          "Completing validation and making the next activity ready happen in the same database transaction.",
-        nodes: [
-          { label: "Validation done", tone: "success" },
-          { label: "Step committed", tone: "success" },
-          { label: "Next activity", tone: "active" },
-        ],
-      },
-      {
-        title: "The worker stops",
-        connections: ["idle", "idle"],
-        description:
-          "A worker disappears during the next activity. Its lease expires while the completed step stays saved.",
-        nodes: [
-          { label: "Import waiting", tone: "warning" },
-          { label: "Progress intact", tone: "success" },
-          { label: "Lease expired", tone: "warning" },
-        ],
-      },
-      {
-        title: "Recover unfinished work",
-        connections: ["idle", "forward"],
-        description:
-          "A replacement claims the unfinished activity. Handlers use the same effect key to protect repeated side effects.",
-        nodes: [
-          { label: "Import resumes", tone: "success" },
-          { label: "Same effect key", tone: "success" },
-          { label: "New worker", tone: "active" },
-        ],
-      },
-    ],
   },
   {
     id: "data-reconciler",
     name: "Data Reconciler",
-    subject: "Find drift. Review the repair.",
-    description:
-      "A TypeScript library and CLI that compares systems, records differences, and applies explicitly approved repairs with preconditions and recovery history.",
+    subject: "Make two systems agree again",
+    description: "Compare records without changing either input. Review the differences, approve a bounded repair plan, and retain the evidence of every change.",
+    sceneDescription: "Source and replica inventory disagree on two products. A scan finds the differences, a repair plan is approved, and only then do the replica values change to match.",
     knowledge: ["Conflict resolution", "Checkpointed syncs", "Conditional repairs"],
     source: "https://github.com/KleitonBarone/data-reconciler",
-    nodeNames: ["Source inventory", "Reconciliation", "Target inventory"],
-    steps: [
-      {
-        title: "Two systems disagree",
-        connections: ["idle", "idle"],
-        description:
-          "A fictional inventory item has twelve units in the source and ten in the target.",
-        nodes: [
-          { label: "12 units", tone: "neutral" },
-          { label: "Not compared", tone: "neutral" },
-          { label: "10 units", tone: "warning" },
-        ],
-      },
-      {
-        title: "Compare without changing data",
-        connections: ["forward", "backward"],
-        description:
-          "The engine records the difference and its source evidence. Comparison leaves both inputs untouched.",
-        nodes: [
-          { label: "12 units", tone: "neutral" },
-          { label: "Difference saved", tone: "warning" },
-          { label: "Still 10 units", tone: "neutral" },
-        ],
-      },
-      {
-        title: "Review the exact repair",
-        connections: ["idle", "backward"],
-        description:
-          "An operator approves a bounded repair plan. The writer checks ownership and the target precondition before applying it.",
-        nodes: [
-          { label: "Owner of quantity", tone: "neutral" },
-          { label: "Plan approved", tone: "active" },
-          { label: "Precondition checked", tone: "active" },
-        ],
-      },
-      {
-        title: "Apply and retain the evidence",
-        connections: ["idle", "forward"],
-        description:
-          "The local SQLite target now has twelve units. Repair receipts make repeating the approved operation safe.",
-        nodes: [
-          { label: "12 units", tone: "neutral" },
-          { label: "Repair recorded", tone: "success" },
-          { label: "12 units", tone: "success" },
-        ],
-      },
-    ],
   },
   {
     id: "feature-rollout-service",
     name: "Feature Rollout Service",
-    subject: "Predictable decisions during outages",
-    description:
-      "A feature-flag service with stable percentage targeting and a local TypeScript SDK. Flag checks use cached configuration and explicit defaults when it becomes stale.",
+    subject: "Release gradually, without reshuffling users",
+    description: "Stable percentage targeting expands a feature to a wider cohort. A local SDK evaluates cached configuration and uses explicit defaults when it becomes stale.",
+    sceneDescription: "A fixed group of forty example users expands from a twenty-five percent rollout to fifty and seventy-five percent. Previously selected users stay in each larger cohort.",
     knowledge: ["Deterministic targeting", "Percentage rollouts", "Offline evaluation"],
     source: "https://github.com/KleitonBarone/feature-rollout-service",
-    nodeNames: ["Flag service", "Application SDK", "Feature decision"],
-    steps: [
-      {
-        title: "Publish a gradual rollout",
-        connections: ["forward", "idle"],
-        description:
-          "A new checkout is enabled for a stable 25% cohort. The SDK receives the published configuration.",
-        nodes: [
-          { label: "25% rollout", tone: "active" },
-          { label: "Snapshot cached", tone: "success" },
-          { label: "Ready to evaluate", tone: "neutral" },
-        ],
-      },
-      {
-        title: "Keep the same user in the same cohort",
-        connections: ["idle", "forward"],
-        description:
-          "A selected example user receives the new checkout. Repeating the check with the same key gives the same assignment.",
-        nodes: [
-          { label: "25% rollout", tone: "neutral" },
-          { label: "Stable user key", tone: "active" },
-          { label: "New checkout", tone: "success" },
-        ],
-      },
-      {
-        title: "The flag service goes offline",
-        connections: ["idle", "forward"],
-        description:
-          "Checks continue locally using the still-fresh cached snapshot. They make no network request for each decision.",
-        nodes: [
-          { label: "Unavailable", tone: "warning" },
-          { label: "Cache still fresh", tone: "success" },
-          { label: "New checkout", tone: "success" },
-        ],
-      },
-      {
-        title: "Use an explicit default when stale",
-        connections: ["idle", "forward"],
-        description:
-          "If configuration becomes too old, the SDK returns the declared default. A disconnected client cannot receive an immediate remote kill.",
-        nodes: [
-          { label: "Still unavailable", tone: "warning" },
-          { label: "Snapshot stale", tone: "warning" },
-          { label: "Default checkout", tone: "active" },
-        ],
-      },
-    ],
   },
-] as const satisfies readonly EngineeringProject[];
+] as const;
