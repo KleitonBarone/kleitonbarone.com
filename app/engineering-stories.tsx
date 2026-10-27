@@ -32,10 +32,11 @@ function documentIsVisible() {
   return document.visibilityState === "visible";
 }
 
-function SystemStudy({ project, allowMotion, playing }: {
+function SystemStudy({ project, allowMotion, playing, enabled }: {
   project: EngineeringProject;
   allowMotion: boolean;
   playing: boolean;
+  enabled: boolean;
 }) {
   const sceneRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
@@ -57,16 +58,8 @@ function SystemStudy({ project, allowMotion, playing }: {
         <h4 id={`${project.id}-title`}>{project.name}</h4>
         <p>{project.subject}</p>
       </div>
-      <div
-        className={`system-scene scene-${project.id}`}
-        data-project={project.id}
-        data-motion={allowMotion}
-        data-running={allowMotion && playing && inView}
-        role="img"
-        aria-label={project.sceneDescription}
-        ref={sceneRef}
-      >
-        <Scene />
+      <div className="system-experiment" ref={sceneRef}>
+        <Scene project={project} allowMotion={allowMotion} running={playing && inView} enabled={enabled} />
       </div>
       <p className="system-description">{project.description}</p>
       <p className="project-knowledge">{project.knowledge.join(", ")}</p>
@@ -87,7 +80,7 @@ export function EngineeringStories() {
       <div className="systems-heading">
         <div>
           <h3 id="systems-title">Systems without a live demo.</h3>
-          <p>See deliveries retry, jobs recover, records agree, and features reach more users.</p>
+          <p>Try a delivery, interrupt a job, fix a mismatch, or drag the rollout slider.</p>
         </div>
         {reducedMotion ? <span className="motion-setting">Reduced motion enabled</span> : (
           <button className="motion-control" type="button" onClick={() => setPaused((value) => !value)}>
@@ -98,10 +91,10 @@ export function EngineeringStories() {
       </div>
       <div className="system-gallery">
         {engineeringProjects.map((project) => (
-          <SystemStudy key={project.id} project={project} allowMotion={!reducedMotion} playing={!paused && visible} />
+          <SystemStudy key={project.id} project={project} allowMotion={!reducedMotion} playing={!paused && visible} enabled={visible} />
         ))}
       </div>
-      <p className="systems-note">Illustrations of backend behavior. These scenes run entirely in your browser.</p>
+      <p className="systems-note">Interactive illustrations of backend behavior. Everything runs in your browser.</p>
     </section>
   );
 }
