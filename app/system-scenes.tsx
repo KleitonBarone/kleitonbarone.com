@@ -182,13 +182,13 @@ export function TaskScene(props: SceneProps) {
           <span className="task-marker"><span className="task-check motion"><Check /></span><span className="task-step motion">2</span></span>
           <div><strong>Import records</strong><div className="task-progress"><i className="task-import-progress motion" /></div></div>
           <div className="task-worker"><span className="worker-old motion">Worker A</span><span className="worker-new motion">Worker B</span></div>
+          <span className="task-interruption motion"><span aria-hidden="true">!</span> Worker stopped. Progress is safe.</span>
         </div>
         <div className="task-activity task-activity-notify">
           <span className="task-marker"><span className="task-check motion"><Check /></span><span className="task-step motion">3</span></span>
           <div><strong>Send confirmation</strong><div className="task-progress"><i className="task-notify-progress motion" /></div></div>
           <span className="task-finish motion">Done</span>
         </div>
-        <div className="task-interruption motion"><span aria-hidden="true">!</span> Worker stopped. Progress is safe.</div>
       </div>
       <p className="scene-caption">Keep completed work. Retry the unfinished activity.</p>
     </SceneFrame>
