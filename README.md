@@ -33,15 +33,18 @@ The app needs no runtime environment variables or custom `vercel.json`. Connect 
 - `app/page.tsx`: the page sections and personal introduction.
 - `app/projects.ts`: hosted demo URLs, source-code links, distinct engineering knowledge, and the illustrated scenarios.
 - `app/project-showcase.tsx`: the three hosted apps and their screenshots.
-- `app/engineering-stories.tsx`: the selectable engineering walkthroughs.
+- `app/engineering-stories.tsx`: the always-visible system gallery and motion controls.
+- `app/system-scenes.tsx` and `app/system-scenes.css`: the four distinct animated illustrations.
 - `app/resume/page.tsx`: redirect from the previous résumé page to the PDF.
-- `app/globals.css` and `app/projects.css`: typography, colors, and responsive layouts.
+- `app/globals.css` and `app/projects.css`: shared typography, colors, and the hosted-app layouts.
 - `public/projects/`: screenshots copied from each project's own evidence. Replace them when those interfaces change.
 - `public/kleiton-barone.jpg`: the current public GitHub profile photo.
 - `public/resume.pdf`: the unmodified LinkedIn PDF export, downloaded September 12, 2026. Replace this file after updating the LinkedIn profile to keep the download current.
 
 The three featured links open independently hosted browser demos with fictional data. Their source-code links include the full backend implementations. Screenshots come from the projects' local verification records. Each project lists distinct engineering knowledge rather than repeating its technology stack.
 
-Engineering walkthroughs are illustrations, not running backend services. They play once after a click, pause when hidden or offscreen, and support manual stepping. Reduced-motion visitors get manual controls without autoplay. No animation library or external service is needed.
+All four system illustrations remain visible in a responsive gallery. Each uses a different visual story and loops automatically while in view. One pause control freezes the motion; offscreen scenes and hidden tabs pause too. Reduced-motion visitors and browsers without JavaScript see complete still illustrations. No animation library or external service is needed.
+
+Motion references include [Inngest's visual durability primer](https://www.inngest.com/blog/durable-functions-a-visual-javascript-primer), [Svix's delivery illustrations](https://www.svix.com/), and [LaunchDarkly's feature-flag examples](https://launchdarkly.com/features/feature-flags/). The scene artwork is original HTML, CSS, and SVG.
 
 Experience and education come from the public GitHub profile; the contact email was confirmed by Kleiton. The résumé PDF includes the full employment and education details from LinkedIn. Social preview metadata uses `https://kleitonbarone.com`.

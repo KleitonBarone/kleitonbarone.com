@@ -53,13 +53,6 @@ export function ProjectShowcase() {
         Explore with fictional data, no sign-up needed. The hosted demos run in your
         browser; the source code includes the full backend implementations.
       </p>
-      <div className="engineering-heading">
-        <h3>Systems without a live demo.</h3>
-        <p>
-          Pick a system to explore a short illustrated scenario, then read its
-          source code.
-        </p>
-      </div>
       <EngineeringStories />
     </>
   );

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./projects.css";
+@import "./system-scenes.css";
 :root {
   --paper: #fff;
   --ink: #162a45;
