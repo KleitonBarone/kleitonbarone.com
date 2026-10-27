@@ -167,12 +167,42 @@
 }
 @media (max-width: 760px) {
   .demo-projects { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .demo-project {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .project-screenshot {
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+  }
+  .project-screenshot:focus-visible { outline-offset: -3px; }
   .screenshot-viewport { height: 260px; }
   .screenshot-returns-and-refunds .screenshot-viewport { height: 224px; }
-  .demo-project-copy { padding-top: 20px; }
+  .demo-project-copy { padding: 20px 16px 0; }
   .demo-project h3 { font-size: 25px; }
   .project-description { font-size: 14px; }
-  .project-links { gap: 10px 23px; }
+  .project-links {
+    gap: 10px 20px;
+    margin: 3px -16px 0;
+    padding: 16px;
+    border-top: 1px solid var(--line);
+    background: var(--pale);
+  }
+  .project-links a { min-height: 44px; }
+  .project-links .text-link { padding-inline: 8px; }
+  .demo-link {
+    padding-inline: 14px;
+    border: 0;
+    border-radius: 4px;
+    background: var(--blue);
+    color: var(--paper);
+  }
+  .demo-link:hover {
+    background: var(--navy);
+    color: var(--paper);
+  }
   .project-try { padding-top: 15px; }
   .demo-context { margin-top: 26px; }
 }
