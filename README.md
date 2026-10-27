@@ -43,7 +43,9 @@ The app needs no runtime environment variables or custom `vercel.json`. Connect 
 
 The three featured links open independently hosted browser demos with fictional data. Their source-code links include the full backend implementations. Screenshots come from the projects' local verification records. Each project lists distinct engineering knowledge rather than repeating its technology stack.
 
-All four system illustrations remain visible in a responsive gallery. Each uses a different visual story and loops automatically while in view. One pause control freezes the motion; offscreen scenes and hidden tabs pause too. Reduced-motion visitors and browsers without JavaScript see complete still illustrations. No animation library or external service is needed.
+All four system illustrations remain visible in a responsive gallery and loop while in view. Visitors can send and retry an event, stop and recover a worker, create and approve an inventory repair, or adjust a rollout with a slider. Each interaction holds its result until another action or “Watch loop.” The slider keeps the same users selected as the rollout grows.
+
+One pause control freezes motion and timed interactions; offscreen scenes and hidden tabs pause too. Reduced-motion visitors get immediate interaction results. Browsers without JavaScript see complete still illustrations and source links. The controls use native buttons and a keyboard-accessible range input. Everything runs locally in the browser, with no animation library or external service.
 
 Motion references include [Inngest's visual durability primer](https://www.inngest.com/blog/durable-functions-a-visual-javascript-primer), [Svix's delivery illustrations](https://www.svix.com/), and [LaunchDarkly's feature-flag examples](https://launchdarkly.com/features/feature-flags/). The scene artwork is original HTML, CSS, and SVG.
 

@@ -227,6 +227,73 @@
 @keyframes rollout-fill { 0%, 24% { transform: scaleX(.25); } 28%, 49% { transform: scaleX(.5); } 53%, 79% { transform: scaleX(.75); } 83%, 100% { transform: scaleX(.25); } }
 @keyframes rollout-knob { 0%, 24% { left: 25%; } 28%, 49% { left: 50%; } 53%, 79% { left: 75%; } 83%, 100% { left: 25%; } }
 
+/* Controls sit outside the illustration's image role and work without pointer gestures. */
+.scene-controls { min-width: 0; min-height: 111px; margin: 0; padding: 14px 0 0; border: 0; }
+.scene-controls:disabled { display: none; }
+.scene-action-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 42px; }
+.scene-action, .scene-reset { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 42px; padding: 9px 13px; font: inherit; font-size: 12px; font-weight: 600; border-radius: 5px; cursor: pointer; }
+.scene-action { color: var(--paper); background: var(--ink); border: 1px solid var(--ink); transition: background .15s, transform .15s; }
+.scene-action > span { font-size: 17px; font-weight: 400; line-height: 1; }
+.scene-action:hover:enabled { background: var(--blue); border-color: var(--blue); }
+.scene-action:active:enabled { transform: translateY(1px); }
+.scene-action:disabled { opacity: .62; cursor: default; }
+.scene-reset { padding-inline: 2px; background: transparent; border: 0; color: var(--muted); font-size: 11px; font-weight: 400; white-space: nowrap; }
+.scene-reset:hover { color: var(--blue); }
+.scene-reset > span { font-size: 16px; }
+.scene-feedback { margin-top: 8px; font-size: 11px; color: var(--muted); line-height: 1.7; }
+.rollout-control-heading { min-height: 27px; }
+.rollout-control-heading label { font-size: 12px; font-weight: 600; cursor: pointer; }
+.rollout-control-heading .scene-reset { min-height: 27px; padding-block: 0; }
+.rollout-input { appearance: none; display: block; width: 100%; height: 28px; margin: 0; border: 0; border-radius: 0; background: linear-gradient(var(--blue), var(--blue)) left center / 75% 3px no-repeat, linear-gradient(var(--line), var(--line)) center / 100% 3px no-repeat; cursor: ew-resize; accent-color: var(--blue); }
+.rollout-input::-webkit-slider-thumb { appearance: none; height: 16px; width: 16px; border-radius: 50%; border: 3px solid var(--paper); background: var(--blue); box-shadow: 0 0 0 1px var(--blue); transition: box-shadow .15s; }
+.rollout-input::-moz-range-thumb { height: 11px; width: 11px; border-radius: 50%; border: 3px solid var(--paper); background: var(--blue); box-shadow: 0 0 0 1px var(--blue); }
+.rollout-input:hover::-webkit-slider-thumb { box-shadow: 0 0 0 1px var(--blue), 0 0 0 5px var(--pale); }
+.rollout-input:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 3px; }
+.rollout-input + .scene-feedback { margin-top: 1px; }
+
+/* Taking control replaces the loop with a small, finite scenario. */
+.system-scene[data-interactive="true"] .motion { animation-name: none; }
+.system-scene[data-interactive="true"] :is(.delivery-response, .delivery-retry-note, .delivery-receipt) { opacity: 0; }
+.system-scene[data-state="failed"] :is(.delivery-error, .delivery-retry-note, .receipt-failed),
+.system-scene[data-state="retrying"] .receipt-failed,
+.system-scene[data-state="delivered"] :is(.delivery-ok, .delivery-receipt) { opacity: 1; }
+.system-scene[data-state="sending"] .delivery-packet,
+.system-scene[data-state="retrying"] .delivery-packet { animation-name: interactive-delivery; animation-duration: 900ms; animation-iteration-count: 1; }
+@keyframes interactive-delivery { 0% { left: 17%; top: 43%; opacity: 0; } 12% { left: 17%; opacity: 1; } 85% { left: 83%; opacity: 1; } 100% { left: 83%; top: 43%; opacity: 0; } }
+
+.system-scene[data-state="crashed"] .task-interruption { opacity: 1; }
+.system-scene[data-state="crashed"] .worker-new { opacity: 0; }
+.system-scene[data-state="crashed"] .task-import-progress { width: 46%; }
+.system-scene[data-state="crashed"] .task-notify-progress { width: 0; }
+.system-scene[data-state="crashed"] :is(.task-activity-import .task-check, .task-activity-notify .task-check, .task-finish),
+.system-scene[data-state="recovering"] :is(.task-activity-import .task-check, .task-activity-notify .task-check, .task-finish) { opacity: 0; }
+.system-scene[data-state="crashed"] .task-step,
+.system-scene[data-state="recovering"] .task-step { opacity: 1; }
+.system-scene[data-state="recovering"] .task-import-progress { animation-name: interactive-import; animation-duration: 2200ms; animation-iteration-count: 1; }
+.system-scene[data-state="recovering"] .task-notify-progress { animation-name: interactive-notify; animation-duration: 2200ms; animation-iteration-count: 1; }
+.system-scene[data-state="recovering"] .task-activity-import .task-check { animation-name: interactive-import-check; animation-duration: 2200ms; animation-iteration-count: 1; }
+.system-scene[data-state="recovering"] .task-activity-import .task-step { animation-name: interactive-import-step; animation-duration: 2200ms; animation-iteration-count: 1; }
+@keyframes interactive-import { 0%, 8% { width: 0; } 68%, 100% { width: 100%; } }
+@keyframes interactive-notify { 0%, 74% { width: 0; } 100% { width: 100%; } }
+@keyframes interactive-import-check { 0%, 68% { opacity: 0; } 72%, 100% { opacity: 1; } }
+@keyframes interactive-import-step { 0%, 68% { opacity: 1; } 72%, 100% { opacity: 0; } }
+
+.system-scene[data-state="drift"] .ledger-changed,
+.system-scene[data-state="approved"] .ledger-changed { background: #fff2df; }
+.system-scene[data-state="drift"] :is(.ledger-before, .reconcile-different, .repair-compare),
+.system-scene[data-state="approved"] :is(.ledger-before, .reconcile-different, .repair-approve) { opacity: 1; }
+.system-scene[data-state="drift"] :is(.ledger-after, .reconcile-equal, .repair-complete),
+.system-scene[data-state="approved"] :is(.ledger-after, .reconcile-equal, .repair-complete) { opacity: 0; }
+.system-scene[data-interactive="true"] .rollout-person[data-selected="true"] { color: var(--scene-success); }
+.system-scene[data-interactive="true"] .rollout-person[data-selected="false"] { color: #56718f; }
+.system-scene[data-interactive="true"] :is(.rollout-person, .rollout-fill, .rollout-knob) { transition: color .18s, transform .18s, left .18s; }
+
+@media (pointer: coarse) {
+  .scene-action, .scene-reset { min-height: 44px; }
+  .rollout-input { height: 44px; }
+  .scene-controls { min-height: 122px; }
+}
+
 @media (max-width: 1000px) {
   .system-gallery { gap: 36px 24px; }
   .system-scene { padding-inline: 19px; }
