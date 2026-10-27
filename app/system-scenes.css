@@ -123,7 +123,6 @@
 .scene-durable-task-runner { --cycle: 12s; }
 .task-stack { position: relative; display: grid; gap: 9px; margin-top: 20px; }
 .task-activity { display: grid; grid-template-columns: 26px minmax(0, 1fr) 71px; gap: 12px; align-items: center; background: #fff; border: 1px solid #dce5ef; border-radius: 7px; padding: 10px 13px; min-height: 49px; }
-.task-activity-import { position: relative; }
 .task-activity > div > strong { display: block; font-size: 12px; line-height: 1.5; font-weight: 600; }
 .task-activity > div > span { font-size: 10px; color: var(--scene-muted); }
 .task-marker { width: 23px; height: 23px; border-radius: 50%; display: grid; place-items: center; position: relative; color: var(--scene-success); background: #e6f4ee; font-size: 11px; }
@@ -137,8 +136,8 @@
 .worker-new { color: var(--blue); }
 .task-progress { height: 3px; background: #e6edf6; border-radius: 2px; margin-top: 6px; overflow: hidden; }
 .task-progress i { display: block; width: 100%; height: 100%; background: var(--blue); border-radius: inherit; }
-.task-interruption { position: absolute; right: 10px; bottom: -12px; z-index: 1; width: max-content; max-width: calc(100% - 20px); display: flex; align-items: center; gap: 6px; padding: 4px 8px; color: #8b4b19; background: #fff3dfcc; border: 1px solid #edd0a499; border-radius: 5px; font-size: 10px; line-height: 1.5; font-weight: 500; pointer-events: none; opacity: 0; }
-.task-interruption > span { flex-shrink: 0; width: 13px; height: 13px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: 9px; }
+.task-worker .task-interruption { color: var(--scene-warning); font-weight: 600; opacity: 0; }
+[data-motion="true"] .task-activity-import { animation-name: task-row-state; }
 [data-motion="true"] .task-import-progress { animation-name: task-import; }
 [data-motion="true"] .task-notify-progress { animation-name: task-notify; }
 [data-motion="true"] .worker-old { animation-name: worker-old; }
@@ -152,7 +151,8 @@
 @keyframes task-notify { 0%, 76% { width: 0; } 89%, 100% { width: 100%; } }
 @keyframes worker-old { 0%, 30% { opacity: 1; } 34%, 100% { opacity: 0; } }
 @keyframes worker-new { 0%, 47% { opacity: 0; } 52%, 100% { opacity: 1; } }
-@keyframes worker-crash { 0%, 31% { opacity: 0; transform: translateY(4px); } 35%, 45% { opacity: 1; transform: translateY(0); } 49%, 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes worker-crash { 0%, 31% { opacity: 0; } 35%, 45% { opacity: 1; } 49%, 100% { opacity: 0; } }
+@keyframes task-row-state { 0%, 29% { background: #fff; border-color: #dce5ef; } 35%, 45% { background: #fffbf4; border-color: #e8d0a8; } 52%, 100% { background: #fff; border-color: #dce5ef; } }
 @keyframes import-check { 0%, 73% { opacity: 0; } 76%, 100% { opacity: 1; } }
 @keyframes import-step { 0%, 73% { opacity: 1; } 76%, 100% { opacity: 0; } }
 @keyframes notify-check { 0%, 88% { opacity: 0; } 91%, 100% { opacity: 1; } }
@@ -263,8 +263,9 @@
 @keyframes interactive-delivery { 0% { left: 17%; top: 43%; opacity: 0; } 12% { left: 17%; opacity: 1; } 85% { left: 83%; opacity: 1; } 100% { left: 83%; top: 43%; opacity: 0; } }
 
 .system-scene[data-state="crashed"] .task-interruption { opacity: 1; }
+.system-scene[data-state="crashed"] .task-activity-import { background: #fffbf4; border-color: #e8d0a8; }
 .system-scene[data-state="crashed"] .worker-new { opacity: 0; }
-.system-scene[data-state="crashed"] .task-import-progress { width: 46%; }
+.system-scene[data-state="crashed"] .task-import-progress { width: 46%; background: #b67a2d; }
 .system-scene[data-state="crashed"] .task-notify-progress { width: 0; }
 .system-scene[data-state="crashed"] :is(.task-activity-import .task-check, .task-activity-notify .task-check, .task-finish),
 .system-scene[data-state="recovering"] :is(.task-activity-import .task-check, .task-activity-notify .task-check, .task-finish) { opacity: 0; }

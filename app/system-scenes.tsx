@@ -178,11 +178,10 @@ export function TaskScene(props: SceneProps) {
           <div><strong>Validate records</strong><span>Checkpoint saved</span></div>
           <span className="task-saved-label">Done</span>
         </div>
-        <div className="task-activity task-activity-import">
+        <div className="task-activity task-activity-import motion">
           <span className="task-marker"><span className="task-check motion"><Check /></span><span className="task-step motion">2</span></span>
           <div><strong>Import records</strong><div className="task-progress"><i className="task-import-progress motion" /></div></div>
-          <div className="task-worker"><span className="worker-old motion">Worker A</span><span className="worker-new motion">Worker B</span></div>
-          <span className="task-interruption motion"><span aria-hidden="true">!</span> Worker stopped. Progress is safe.</span>
+          <div className="task-worker"><span className="worker-old motion">Worker A</span><span className="task-interruption motion">Stopped</span><span className="worker-new motion">Worker B</span></div>
         </div>
         <div className="task-activity task-activity-notify">
           <span className="task-marker"><span className="task-check motion"><Check /></span><span className="task-step motion">3</span></span>
