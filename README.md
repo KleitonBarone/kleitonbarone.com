@@ -30,12 +30,18 @@ The app needs no runtime environment variables or custom `vercel.json`. Connect 
 ## Update the content
 
 - `app/profile.ts`: contact details and social links.
-- `app/page.tsx`: portfolio sections and project descriptions.
+- `app/page.tsx`: the page sections and personal introduction.
+- `app/projects.ts`: hosted demo URLs, repository and case-study links, and the illustrated engineering scenarios.
+- `app/project-showcase.tsx`: the three hosted apps and their screenshots.
+- `app/engineering-stories.tsx`: the selectable engineering walkthroughs.
 - `app/resume/page.tsx`: redirect from the previous résumé page to the PDF.
-- `app/globals.css`: typography, colors, and responsive layouts.
+- `app/globals.css` and `app/projects.css`: typography, colors, and responsive layouts.
+- `public/projects/`: screenshots copied from each project's own evidence. Replace them when those interfaces change.
 - `public/kleiton-barone.jpg`: the current public GitHub profile photo.
 - `public/resume.pdf`: the unmodified LinkedIn PDF export, downloaded September 12, 2026. Replace this file after updating the LinkedIn profile to keep the download current.
 
-The delivery interaction is an illustrative example running in the browser. Project previews are conceptual visuals, not screenshots of production systems. Experience and education come from the public GitHub profile; the contact email was confirmed by Kleiton. The résumé PDF includes the full employment and education details from LinkedIn.
+The three featured links open independently hosted browser demos with fictional data. Their source and case-study links describe the full backend implementations. Screenshots come from the projects' local verification records.
 
-This implementation does not change the existing domain or migrate the TabNews clone. Social preview URLs target the intended final domain, `kleitonbarone.com`, and become valid there after deployment.
+Engineering walkthroughs are illustrations, not running backend services. They play once after a click, pause when hidden or offscreen, and support manual stepping. Reduced-motion visitors get manual controls without autoplay. No animation library or external service is needed.
+
+Experience and education come from the public GitHub profile; the contact email was confirmed by Kleiton. The résumé PDF includes the full employment and education details from LinkedIn. Social preview metadata uses `https://kleitonbarone.com`.
